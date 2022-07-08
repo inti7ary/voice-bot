@@ -5,4 +5,16 @@ API_TOKEN = os.getenv('TG_BOT_API_TOKEN')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+VOICE_DIR = BASE_DIR / 'voice/'
 
+HANDLERS = [
+    'start_handler',
+    'help_handler',
+    'lang_change_handler',
+    'voice_handler',
+]
+
+MODELS = {
+    'en': 'vosk-model-en-us-0.22-lgraph',
+    'ru': 'vosk-model-ru-0.10-lgraph',
+}

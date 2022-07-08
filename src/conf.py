@@ -10,8 +10,8 @@ VOICE_DIR = BASE_DIR / 'voice/'
 HANDLERS = [
     'start_handler',
     'help_handler',
-    'lang_change_handler',
     'voice_handler',
+    'lang_handler'
 ]
 
 MODELS = {

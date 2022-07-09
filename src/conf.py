@@ -1,11 +1,16 @@
 import os
 from pathlib import Path
+from i18n.utils import dummy_gettext as _
 
 API_TOKEN = os.getenv('TG_BOT_API_TOKEN')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 VOICE_DIR = BASE_DIR / 'voice/'
+
+LOCALEDIR = BASE_DIR / 'locales/'
+
+REDIS_URL = os.getenv('REDIS_URL')
 
 HANDLERS = [
     'start_handler',
@@ -22,11 +27,11 @@ MODELS = {
 
 LANGUAGES = {
     'en': {
-        'full': 'english',
+        'full': _('english'),
         'emoji': '🇺🇸'
     },
     'ru': {
-        'full': 'russian',
+        'full': _('russian'),
         'emoji': '🇷🇺'
     },
 }

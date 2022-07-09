@@ -25,12 +25,18 @@ async def download(file: File):
 
 
 async def set_lang(user: User, lang: str):
-    redis = aioredis.from_url('redis://127.0.0.1')
+    redis = aioredis.from_url(conf.REDIS_URL)
     key = f'{user.id}:lang'
     await redis.set(key, lang)
 
 
 async def get_lang(user: User):
-    redis = aioredis.from_url('redis://127.0.0.1:6379/0', decode_responses=True)
+    redis = aioredis.from_url(conf.REDIS_URL, decode_responses=True)
     key = f'{user.id}:lang'
-    return await redis.getset(key, 'ru')
+    lang = await redis.get(key)
+
+    if not lang:
+        lang = user.language_code
+        await redis.set(key, lang)
+
+    return lang

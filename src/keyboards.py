@@ -1,17 +1,46 @@
+from typing import List
 from telegram import InlineKeyboardButton
 from src.conf import LANGUAGES
+from src.i18n.translations import select_gettext
 
-lang_scope_keyboard = [
-    [InlineKeyboardButton('Interface', callback_data='interface'), InlineKeyboardButton('Voice', callback_data='voice')],
-    [InlineKeyboardButton('Cancel', callback_data='cancel')],
-]
 
-lang_keyboard = [
-    [InlineKeyboardButton('{short} {emoji}'.format(
-        short=lang.capitalize(),
-        emoji=LANGUAGES[lang].get('emoji')), callback_data=lang) for lang in LANGUAGES],
-    [InlineKeyboardButton('Cancel', callback_data='cancel')],
-    [InlineKeyboardButton('Back', callback_data='back')]
-]
+def lang_scope_keyboard(lang: str) -> List[InlineKeyboardButton]:
+    """
+    Factory function for inline language scope keyboard.
+
+    Return the keyboard with buttons translated to specific language.
+    """
+
+    _ = select_gettext(lang)
+
+    keyboard = [
+        [InlineKeyboardButton(_('Interface'), callback_data='interface'),
+         InlineKeyboardButton(_('Voice'), callback_data='voice')],
+
+        [InlineKeyboardButton(_('Cancel'), callback_data='cancel')],
+    ]
+
+    return keyboard
+
+
+def lang_keyboard(lang: str) -> List[InlineKeyboardButton]:
+    """
+    Factory function for inline language keyboard.
+
+    Create keyboard containing all languages specified in ``conf.LANGUAGES``.
+    Return the keyboard with buttons translated to specific language.
+    """
+
+    _ = select_gettext(lang)
+
+    keyboard = [
+        [InlineKeyboardButton('{short} {emoji}'.format(
+            short=lang.capitalize(),
+            emoji=LANGUAGES[lang].get('emoji')), callback_data=lang) for lang in LANGUAGES],
+        [InlineKeyboardButton(_('Cancel'), callback_data='cancel')],
+        [InlineKeyboardButton(_('Back'), callback_data='back')]
+    ]
+
+    return keyboard
 
 

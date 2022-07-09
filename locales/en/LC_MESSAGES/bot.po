@@ -1,0 +1,78 @@
+# English translations for inti package.
+# Copyright (C) 2022 THE inti'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the inti package.
+# Automatically generated, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: inti 7ary\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-10 00:15+0300\n"
+"PO-Revision-Date: 2022-07-09 21:45+0300\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/handlers/commands.py:25 src/handlers/commands.py:15
+msgid "Hi!"
+msgstr "Hi!"
+
+#: src/handlers/commands.py:31 src/handlers/commands.py:23
+msgid "I can't help you yet :("
+msgstr "I can't help you yet :("
+
+#: src/handlers/language.py:23 src/handlers/language.py:68
+#: src/handlers/language.py:22 src/handlers/language.py:67
+msgid "Change the language of the interface or voice messages?"
+msgstr "Change the language of the interface or voice messages?"
+
+#: src/handlers/language.py:40 src/handlers/language.py:39
+msgid "Select the interface language:"
+msgstr "Select the interface language:"
+
+#: src/handlers/language.py:44 src/handlers/language.py:43
+msgid "Select the language of voice messages:"
+msgstr "Select the language of voice messages:"
+
+#: src/handlers/language.py:48 src/handlers/language.py:72
+#: src/handlers/language.py:47 src/handlers/language.py:71
+msgid "Cancelled"
+msgstr "Cancelled"
+
+#: src/handlers/voice.py:21 src/handlers/voice.py:20
+msgid "Sorry, I failed to detect any voice here :("
+msgstr "Sorry, I failed to detect any voice here :("
+
+#: src/handlers/language.py:79
+#, python-brace-format
+msgid "Voice messages language changed to {lang} {emoji}"
+msgstr "Voice messages language changed to {lang} {emoji}"
+
+#: src/keyboards.py:8 src/keyboards.py:15
+#, fuzzy
+msgid "Cancel"
+msgstr "Cancelled"
+
+#: src/keyboards.py:16
+msgid "Back"
+msgstr "Back"
+
+#: src/conf.py:29
+msgid "english"
+msgstr "english"
+
+#: src/conf.py:33
+msgid "russian"
+msgstr "russian"
+
+#: src/keyboards.py:7
+msgid "Interface"
+msgstr "Interface"
+
+#: src/keyboards.py:7
+msgid "Voice"
+msgstr "Voice"

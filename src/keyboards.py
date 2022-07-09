@@ -1,4 +1,5 @@
 from telegram import InlineKeyboardButton
+from src.conf import LANGUAGES
 
 lang_scope_keyboard = [
     [InlineKeyboardButton('Interface', callback_data='interface'), InlineKeyboardButton('Voice', callback_data='voice')],
@@ -6,7 +7,9 @@ lang_scope_keyboard = [
 ]
 
 lang_keyboard = [
-    [InlineKeyboardButton('En 🇺🇸', callback_data='en'), InlineKeyboardButton('Ru 🇷🇺', callback_data='ru')],
+    [InlineKeyboardButton('{short} {emoji}'.format(
+        short=lang.capitalize(),
+        emoji=LANGUAGES[lang].get('emoji')), callback_data=lang) for lang in LANGUAGES],
     [InlineKeyboardButton('Cancel', callback_data='cancel')],
     [InlineKeyboardButton('Back', callback_data='back')]
 ]

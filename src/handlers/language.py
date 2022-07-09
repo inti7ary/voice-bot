@@ -1,6 +1,7 @@
 from telegram import Update, InlineKeyboardMarkup
 from telegram.ext import ContextTypes, ConversationHandler, CommandHandler, CallbackQueryHandler
 from src.keyboards import lang_scope_keyboard, lang_keyboard
+from src.conf import LANGUAGES
 from src.utils import set_lang
 
 
@@ -58,7 +59,12 @@ async def change_voice_lang(update: Update, context=ContextTypes.DEFAULT_TYPE):
             user = update.effective_user
             await set_lang(user, query.data)
             state = ConversationHandler.END
-            message = f'Language changed to {query.data}'
+
+            lang = LANGUAGES[query.data.lower()]
+            message = 'Voice messages language changed to {lang} {emoji}'.format(
+                lang=lang['full'],
+                emoji=lang['emoji']
+            )
             markup = None
 
     await query.edit_message_text(message, reply_markup=markup)
@@ -71,7 +77,6 @@ async def cancel(update: Update, context=ContextTypes.DEFAULT_TYPE):
 
 
 # handlers
-
 lang_handler = ConversationHandler(
     conversation_timeout=60,
     entry_points=[CommandHandler("lang", handle_lang_command)],

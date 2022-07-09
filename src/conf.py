@@ -11,10 +11,22 @@ HANDLERS = [
     'start_handler',
     'help_handler',
     'voice_handler',
-    'lang_handler'
+    'lang_handler',
+    'text_handler',
 ]
 
 MODELS = {
     'en': 'vosk-model-en-us-0.22-lgraph',
     'ru': 'vosk-model-ru-0.10-lgraph',
+}
+
+LANGUAGES = {
+    'en': {
+        'full': 'english',
+        'emoji': '🇺🇸'
+    },
+    'ru': {
+        'full': 'russian',
+        'emoji': '🇷🇺'
+    },
 }

@@ -1,10 +1,12 @@
+import logging
+
 import conf
 from src.handlers import handlers
 from telegram.ext import Application
 
 
 def main():
-    application = Application.builder().token(conf.API_TOKEN).build()
+    application = Application.builder().token(conf.API_TOKEN).concurrent_updates(True).build()
 
     for handler in conf.HANDLERS:
         application.add_handler(getattr(handlers, handler))

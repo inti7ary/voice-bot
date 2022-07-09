@@ -21,4 +21,4 @@ async def handle_voice(update: Update, context=ContextTypes.DEFAULT_TYPE):
 
 # handlers
 
-voice_handler = MessageHandler(filters.VOICE, handle_voice, block=False)
+voice_handler = MessageHandler(filters.VOICE, handle_voice)

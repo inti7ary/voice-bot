@@ -5,9 +5,16 @@ from functools import partial
 from vosk import Model, KaldiRecognizer
 import subprocess
 from src import conf
+from src.errors import LanguageNotSupportedError
 
 
 def _transcribe_voice_sync(file_path, lang='en'):
+
+    if lang not in conf.LANGUAGES:
+        supported_langs = list(conf.MODELS)
+        message = f"Language '{lang}' is not supported, supported languages are: {repr(supported_langs).strip('[]')}"
+        raise LanguageNotSupportedError(message)
+
     sample_rate = 16000
     model = Model(lang=lang, model_name=conf.MODELS.get(lang))
     rec = KaldiRecognizer(model, sample_rate)
@@ -27,6 +34,8 @@ def _transcribe_voice_sync(file_path, lang='en'):
 
 
 async def transcribe_voice(file_path, lang='en'):
+    """Convert audio file at file_path to text."""
+
     func = partial(_transcribe_voice_sync, file_path=file_path, lang=lang)
     loop = asyncio.get_running_loop()
 

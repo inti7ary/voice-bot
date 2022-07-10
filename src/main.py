@@ -1,7 +1,5 @@
-import logging
-
 import conf
-from src.handlers import handlers
+from src import handlers
 from telegram.ext import Application
 
 

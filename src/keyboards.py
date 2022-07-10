@@ -4,7 +4,7 @@ from src.conf import LANGUAGES
 from src.i18n.translations import select_gettext
 
 
-def lang_scope_keyboard(lang: str) -> List[InlineKeyboardButton]:
+def lang_scope_keyboard(lang: str) -> List[List[InlineKeyboardButton]]:
     """
     Factory function for inline language scope keyboard.
 
@@ -23,7 +23,7 @@ def lang_scope_keyboard(lang: str) -> List[InlineKeyboardButton]:
     return keyboard
 
 
-def lang_keyboard(lang: str) -> List[InlineKeyboardButton]:
+def lang_keyboard(lang: str) -> List[List[InlineKeyboardButton]]:
     """
     Factory function for inline language keyboard.
 
@@ -42,5 +42,3 @@ def lang_keyboard(lang: str) -> List[InlineKeyboardButton]:
     ]
 
     return keyboard
-
-

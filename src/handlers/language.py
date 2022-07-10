@@ -1,22 +1,20 @@
-from telegram import Update, InlineKeyboardMarkup
 from telegram.ext import ContextTypes, ConversationHandler, CommandHandler, CallbackQueryHandler
+from telegram import Update, InlineKeyboardMarkup
 from src.i18n.translations import select_gettext
+from src.i18n.utils import ensure_language
 from src.keyboards import lang_scope_keyboard, lang_keyboard
-from src.conf import LANGUAGES
-from src.utils import set_lang, get_lang
+from src import conf
 
 SELECT_LANG_SCOPE, LANG_INTERFACE, LANG_VOICE = range(3)
 
 
 # callbacks
 
+@ensure_language
 async def handle_lang_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
-
-    #
-    lang = await get_lang(update.effective_user)
+    lang = context.user_data['lang']
     _ = select_gettext(lang)
-    #
+
     markup = InlineKeyboardMarkup(inline_keyboard=lang_scope_keyboard(lang))
 
     await update.message.reply_text(
@@ -27,13 +25,11 @@ async def handle_lang_command(update: Update, context: ContextTypes.DEFAULT_TYPE
 
 
 async def select_scope(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    lang = context.user_data['lang']
+    _ = select_gettext(lang)
+
     query = update.callback_query
     await query.answer()
-
-    #
-    lang = await get_lang(update.effective_user)
-    _ = select_gettext(lang)
-    #
 
     match query.data:
         case 'interface':
@@ -54,13 +50,11 @@ async def select_scope(update: Update, context: ContextTypes.DEFAULT_TYPE):
     return state
 
 
-async def change_voice_lang(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    query = update.callback_query
-
-    #
-    lang = await get_lang(update.effective_user)
+async def change_interface_lang(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    lang = context.user_data['lang']
     _ = select_gettext(lang)
-    #
+
+    query = update.callback_query
 
     match query.data:
         case 'back':
@@ -72,17 +66,52 @@ async def change_voice_lang(update: Update, context: ContextTypes.DEFAULT_TYPE):
             message = _('Cancelled')
             markup = None
         case _:
-            user = update.effective_user
             new_lang = query.data
-            await set_lang(user, query.data)
-            state = ConversationHandler.END
             _ = select_gettext(new_lang)
+            lang_data = conf.LANGUAGES[new_lang]
 
-            lang = LANGUAGES[query.data.lower()]
-            message = _('Voice messages language changed to {lang} {emoji}').format(
-                lang=_(lang['full']),
-                emoji=lang['emoji']
+            context.user_data['lang'] = new_lang
+            state = ConversationHandler.END
+
+            message = _('Interface language changed to {lang} {emoji}').format(
+                lang=_(lang_data['full']),
+                emoji=lang_data['emoji']
             )
+
+            markup = None
+
+    await query.edit_message_text(message, reply_markup=markup)
+
+    return state
+
+
+async def change_voice_lang(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    lang = context.user_data['lang']
+    _ = select_gettext(lang)
+
+    query = update.callback_query
+
+    match query.data:
+        case 'back':
+            state = SELECT_LANG_SCOPE
+            message = _('Change the language of the interface or voice messages?')
+            markup = InlineKeyboardMarkup(inline_keyboard=lang_scope_keyboard(lang))
+        case 'cancel':
+            state = ConversationHandler.END
+            message = _('Cancelled')
+            markup = None
+        case _:
+            new_lang = query.data
+            lang_data = conf.LANGUAGES[new_lang]
+
+            context.user_data['voice_lang'] = new_lang
+            state = ConversationHandler.END
+
+            message = _('Voice messages language changed to {lang} {emoji}').format(
+                lang=_(lang_data['full']),
+                emoji=lang_data['emoji']
+            )
+
             markup = None
 
     await query.edit_message_text(message, reply_markup=markup)
@@ -95,12 +124,16 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 # handlers
+
+_langs_regex_str = '|'.join(conf.LANGUAGES)
+
 lang_handler = ConversationHandler(
     conversation_timeout=60,
     entry_points=[CommandHandler("lang", handle_lang_command)],
     states={
         SELECT_LANG_SCOPE: [CallbackQueryHandler(select_scope, "^(voice|interface|cancel)$")],
-        LANG_VOICE: [CallbackQueryHandler(change_voice_lang, "^(en|ru|back|cancel)$")]
+        LANG_INTERFACE: [CallbackQueryHandler(change_interface_lang, f"^({_langs_regex_str}|back|cancel)$")],
+        LANG_VOICE: [CallbackQueryHandler(change_voice_lang, f"^({_langs_regex_str}|back|cancel)$")]
     },
     fallbacks=[CommandHandler("cancel", cancel)],
 )

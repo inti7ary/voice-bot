@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: inti 7ary\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-10 00:49+0300\n"
+"POT-Creation-Date: 2022-07-10 07:03+0300\n"
 "PO-Revision-Date: 2022-07-09 17:39+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -18,29 +18,38 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/handlers/commands.py:25 src/handlers/commands.py:15
+#: src/handlers/commands.py:18
 msgid "Hi!"
 msgstr "Привет!"
 
 #: src/handlers/commands.py:31 src/handlers/commands.py:23
+#: src/handlers/commands.py:26
 msgid "I can't help you yet :("
 msgstr "Я пока не могу тебе помочь :("
 
 #: src/handlers/language.py:23 src/handlers/language.py:68
 #: src/handlers/language.py:22 src/handlers/language.py:67
+#: src/handlers/language.py:21 src/handlers/language.py:62
+#: src/handlers/language.py:97
 msgid "Change the language of the interface or voice messages?"
 msgstr "Изменить язык интерфейса или голосовых сообщений?"
 
 #: src/handlers/language.py:40 src/handlers/language.py:39
+#: src/handlers/language.py:36
 msgid "Select the interface language:"
 msgstr "Выберите язык интерфейса:"
 
 #: src/handlers/language.py:44 src/handlers/language.py:43
+#: src/handlers/language.py:40
 msgid "Select the language of voice messages:"
 msgstr "Выберите язык голосовых сообщений:"
 
-#: src/keyboards.py:8 src/keyboards.py:15 src/keyboards.py:13
-#: src/keyboards.py:25
-msgid "Cancel"
+#: src/handlers/language.py:48 src/handlers/language.py:72
+#: src/handlers/language.py:47 src/handlers/language.py:71
+#: src/handlers/language.py:44 src/handlers/language.py:66
+#: src/handlers/language.py:101
+#, fuzzy
+msgid "Cancelled"
 msgstr "Отмена"
 
 #: src/handlers/voice.py:21 src/handlers/voice.py:20
@@ -48,9 +57,15 @@ msgid "Sorry, I failed to detect any voice here :("
 msgstr "К сожалению, у меня не получилось распознать голос в этом сообщении :("
 
 #: src/handlers/language.py:79 src/handlers/language.py:82
+#: src/handlers/language.py:110
 #, python-brace-format
 msgid "Voice messages language changed to {lang} {emoji}"
 msgstr "Язык голосовых сообщений изменён на {lang} {emoji}"
+
+#: src/keyboards.py:8 src/keyboards.py:15 src/keyboards.py:13
+#: src/keyboards.py:25
+msgid "Cancel"
+msgstr "Отмена"
 
 #: src/keyboards.py:16 src/keyboards.py:26
 msgid "Back"
@@ -71,3 +86,8 @@ msgstr "Интерфейс"
 #: src/keyboards.py:7 src/keyboards.py:11
 msgid "Voice"
 msgstr "Голос"
+
+#: src/handlers/language.py:76
+#, fuzzy, python-brace-format
+msgid "Interface language changed to {lang} {emoji}"
+msgstr "Язык интерфейса изменён на {lang} {emoji}"

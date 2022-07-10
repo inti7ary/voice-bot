@@ -1,30 +1,28 @@
 from telegram import Update
 from telegram.ext import CommandHandler, ContextTypes
 from src.i18n.translations import select_gettext
-from src.utils import get_lang
-
+from src.i18n.utils import ensure_language
 
 # callbacks
 
+
+@ensure_language
 async def handle_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    lang = await get_lang(update.effective_user)
+    lang = context.user_data['lang']
     _ = select_gettext(lang)
 
-    context.user_data['started'] = 'who?'
+    bot_users = context.bot_data.setdefault('users', [])
+    bot_users.append(update.effective_user.id)
 
-    message = update.message
-
-    await message.reply_text(_("Hi!"))
+    await update.message.reply_text(_("Hi!"))
 
 
+@ensure_language
 async def handle_help(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    lang = await get_lang(update.effective_user)
+    lang = context.user_data['lang']
     _ = select_gettext(lang)
 
-
-
-    message = update.message
-    await message.reply_text(_("I can't help you yet :("))
+    await update.message.reply_text(_("I can't help you yet :("))
 
 
 # handlers

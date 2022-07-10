@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-10 00:49+0300\n"
+"POT-Creation-Date: 2022-07-10 07:10+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,34 +18,38 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/handlers/commands.py:25 src/handlers/commands.py:15
-#: src/handlers/commands.py:15
+#: src/handlers/commands.py:18 src/handlers/commands.py:18
 msgid "Hi!"
 msgstr ""
 
 #: src/handlers/commands.py:31 src/handlers/commands.py:23
-#: src/handlers/commands.py:23
+#: src/handlers/commands.py:26 src/handlers/commands.py:26
 msgid "I can't help you yet :("
 msgstr ""
 
 #: src/handlers/language.py:23 src/handlers/language.py:68
 #: src/handlers/language.py:22 src/handlers/language.py:67
-#: src/handlers/language.py:23 src/handlers/language.py:68
+#: src/handlers/language.py:21 src/handlers/language.py:62
+#: src/handlers/language.py:97 src/handlers/language.py:21
+#: src/handlers/language.py:62 src/handlers/language.py:97
 msgid "Change the language of the interface or voice messages?"
 msgstr ""
 
 #: src/handlers/language.py:40 src/handlers/language.py:39
-#: src/handlers/language.py:40
+#: src/handlers/language.py:36 src/handlers/language.py:36
 msgid "Select the interface language:"
 msgstr ""
 
 #: src/handlers/language.py:44 src/handlers/language.py:43
-#: src/handlers/language.py:44
+#: src/handlers/language.py:40 src/handlers/language.py:40
 msgid "Select the language of voice messages:"
 msgstr ""
 
 #: src/handlers/language.py:48 src/handlers/language.py:72
 #: src/handlers/language.py:47 src/handlers/language.py:71
-#: src/handlers/language.py:48 src/handlers/language.py:72
+#: src/handlers/language.py:44 src/handlers/language.py:66
+#: src/handlers/language.py:101 src/handlers/language.py:44
+#: src/handlers/language.py:66 src/handlers/language.py:101
 msgid "Cancelled"
 msgstr ""
 
@@ -54,6 +58,7 @@ msgid "Sorry, I failed to detect any voice here :("
 msgstr ""
 
 #: src/handlers/language.py:79 src/handlers/language.py:82
+#: src/handlers/language.py:110 src/handlers/language.py:110
 #, python-brace-format
 msgid "Voice messages language changed to {lang} {emoji}"
 msgstr ""
@@ -81,4 +86,9 @@ msgstr ""
 
 #: src/keyboards.py:7 src/keyboards.py:11
 msgid "Voice"
+msgstr ""
+
+#: src/handlers/language.py:76 src/handlers/language.py:76
+#, python-brace-format
+msgid "Interface language changed to {lang} {emoji}"
 msgstr ""

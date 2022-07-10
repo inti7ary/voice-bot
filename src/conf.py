@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
-from i18n.utils import dummy_gettext as _
+from i18n.gettext import dummy_gettext as _
+
 
 API_TOKEN = os.getenv('TG_BOT_API_TOKEN')
 

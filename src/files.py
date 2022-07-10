@@ -1,8 +1,6 @@
 from pathlib import Path
 import datetime
-import aioredis
-from telegram import File, User
-
+from telegram import File
 from src import conf
 
 
@@ -22,21 +20,3 @@ async def download(file: File):
     await file.download(custom_path=file_path)
 
     return file_path
-
-
-async def set_lang(user: User, lang: str):
-    redis = aioredis.from_url(conf.REDIS_URL)
-    key = f'{user.id}:lang'
-    await redis.set(key, lang)
-
-
-async def get_lang(user: User):
-    redis = aioredis.from_url(conf.REDIS_URL, decode_responses=True)
-    key = f'{user.id}:lang'
-    lang = await redis.get(key)
-
-    if not lang:
-        lang = user.language_code
-        await redis.set(key, lang)
-
-    return lang

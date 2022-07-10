@@ -3,7 +3,7 @@ from src import conf
 from src.errors import LanguageNotSupportedError
 
 
-# dict of the available translation formed from conf.LANGUAGES
+# dict of the available translation formed from ``conf.LANGUAGES``
 translations = {
     lang: gettext.translation('bot', conf.LOCALEDIR, languages=[lang]) for lang in conf.LANGUAGES
 }

@@ -11,10 +11,14 @@ async def handle_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     lang = context.user_data['lang']
     _ = select_gettext(lang)
 
-    bot_users = context.bot_data.setdefault('users', [])
-    bot_users.append(update.effective_user.id)
+    # this set is never persisted though...
+    bot_users = context.bot_data.setdefault('users', set())
+    bot_users.add(update.effective_user.id)
 
-    await update.message.reply_text(_("Hi!"))
+    text = _("Hi!\nSend me a voice message and I'll convert it to text.\n\n"
+             "🌎 You can also change the language by typing /lang")
+
+    await update.message.reply_text(text)
 
 
 @ensure_language
@@ -22,7 +26,10 @@ async def handle_help(update: Update, context: ContextTypes.DEFAULT_TYPE):
     lang = context.user_data['lang']
     _ = select_gettext(lang)
 
-    await update.message.reply_text(_("I can't help you yet :("))
+    text = _("Just send me a message if you want to convert it to text.\n"
+             "If you need to change the language, type /lang")
+
+    await update.message.reply_text(text)
 
 
 # handlers

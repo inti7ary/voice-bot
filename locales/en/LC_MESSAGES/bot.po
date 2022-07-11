@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: inti 7ary\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-07-11 06:31+0300\n"
-"PO-Revision-Date: 2022-07-09 17:39+0300\n"
+"PO-Revision-Date: 2022-07-11 05:23+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: en_US\n"
@@ -19,11 +19,11 @@ msgstr ""
 
 #: src/conf.py:31
 msgid "english"
-msgstr "английский"
+msgstr "english"
 
 #: src/conf.py:35
 msgid "russian"
-msgstr "русский"
+msgstr "russian"
 
 #: src/handlers/commands.py:17
 msgid ""
@@ -32,72 +32,63 @@ msgid ""
 "\n"
 "🌎 You can also change the language by typing /lang"
 msgstr ""
-"Привет!\n"
-"Пришли мне голосовое сообщение и я переведу его в текст.\n"
-"\n"
-"🌎 Также ты можешь сменить язык с помощью команды /lang"
 
 #: src/handlers/commands.py:28
 msgid ""
 "Just send me a message if you want to convert it to text.\n"
 "If you need to change the language, type /lang"
 msgstr ""
-"Просто пришли мне госоловое сообщение, если хочешь преобразовать его в "
-"текст.\n"
-"Для смены языка можно использовать команду /lang"
 
 #: src/handlers/language.py:21
-#, python-brace-format
+#, fuzzy, python-brace-format
 msgid ""
 "Change the language of the interface or voice messages?\n"
 "Selected language of voice messages: {lang} {emoji}"
-msgstr ""
-"Изменить язык интерфейса или голосовых сообщений?\n"
-"Выбранный язык голосовых сообщений: {lang} {emoji}"
+msgstr "Change the language of the interface or voice messages?\n"
 
 #: src/handlers/language.py:41
 msgid "Select the interface language:"
-msgstr "Выберите язык интерфейса:"
+msgstr "Select the interface language:"
 
 #: src/handlers/language.py:45
 msgid "Select the language of voice messages:"
-msgstr "Выберите язык голосовых сообщений:"
+msgstr "Select the language of voice messages:"
 
 #: src/handlers/language.py:49 src/handlers/language.py:71
 #: src/handlers/language.py:106
 msgid "Cancelled"
-msgstr "Отменено"
+msgstr "Cancelled"
 
 #: src/handlers/language.py:67 src/handlers/language.py:102
 msgid "Change the language of the interface or voice messages?"
-msgstr "Изменить язык интерфейса или голосовых сообщений?"
+msgstr "Change the language of the interface or voice messages?"
 
 #: src/handlers/language.py:81
 #, python-brace-format
 msgid "Interface language changed to {lang} {emoji}"
-msgstr "Язык интерфейса изменён на {lang} {emoji}"
+msgstr "Interface language changed to {lang} {emoji}"
 
 #: src/handlers/language.py:115
 #, python-brace-format
 msgid "Voice messages language changed to {lang} {emoji}"
-msgstr "Язык голосовых сообщений изменён на {lang} {emoji}"
+msgstr "Voice messages language changed to {lang} {emoji}"
 
 #: src/handlers/voice.py:20
 msgid "Sorry, I failed to detect any voice here :("
-msgstr "К сожалению, у меня не получилось распознать голос в этом сообщении :("
+msgstr "Sorry, I failed to detect any voice here :("
 
 #: src/keyboards.py:17
 msgid "Interface"
-msgstr "Интерфейс"
+msgstr "Interface"
 
 #: src/keyboards.py:18
 msgid "Voice"
-msgstr "Голос"
+msgstr "Voice"
 
 #: src/keyboards.py:20 src/keyboards.py:40
 msgid "Cancel"
-msgstr "Отмена"
+msgstr "Cancel"
 
 #: src/keyboards.py:41
 msgid "Back"
-msgstr "Назад"
+msgstr "Back"

@@ -37,8 +37,8 @@ def lang_keyboard(lang: str) -> List[List[InlineKeyboardButton]]:
         [InlineKeyboardButton('{short} {emoji}'.format(
             short=lang.capitalize(),
             emoji=LANGUAGES[lang].get('emoji')), callback_data=lang) for lang in LANGUAGES],
+        [InlineKeyboardButton(_('Back'), callback_data='back')],
         [InlineKeyboardButton(_('Cancel'), callback_data='cancel')],
-        [InlineKeyboardButton(_('Back'), callback_data='back')]
     ]
 
     return keyboard

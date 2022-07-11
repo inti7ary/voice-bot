@@ -3,7 +3,7 @@ from telegram import Update, InlineKeyboardMarkup
 from src.i18n.translations import select_gettext
 from src.i18n.utils import ensure_language
 from src.keyboards import lang_scope_keyboard, lang_keyboard
-from src import conf
+from src.conf import LANGUAGES
 
 SELECT_LANG_SCOPE, LANG_INTERFACE, LANG_VOICE = range(3)
 
@@ -12,13 +12,20 @@ SELECT_LANG_SCOPE, LANG_INTERFACE, LANG_VOICE = range(3)
 
 @ensure_language
 async def handle_lang_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Entry point of the /lang command"""
+
     lang = context.user_data['lang']
+    voice_lang = context.user_data['voice_lang']
     _ = select_gettext(lang)
 
     markup = InlineKeyboardMarkup(inline_keyboard=lang_scope_keyboard(lang))
 
+    text = _("Change the language of the interface or voice messages?\n"
+             "Selected language of voice messages: {lang} {emoji}")\
+        .format(lang=_(LANGUAGES[voice_lang].get('full')), emoji=LANGUAGES[voice_lang].get('emoji'))
+
     await update.message.reply_text(
-        text=_('Change the language of the interface or voice messages?'),
+        text=text,
         reply_markup=markup)
 
     return SELECT_LANG_SCOPE
@@ -50,39 +57,48 @@ async def select_scope(update: Update, context: ContextTypes.DEFAULT_TYPE):
     return state
 
 
+async def back(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    lang = context.user_data['lang']
+    voice_lang = context.user_data['voice_lang']
+    _ = select_gettext(lang)
+
+    message = _("Change the language of the interface or voice messages?\n"
+                "Selected language of voice messages: {lang} {emoji}") \
+        .format(lang=_(LANGUAGES[voice_lang].get('full')), emoji=LANGUAGES[voice_lang].get('emoji'))
+    markup = InlineKeyboardMarkup(inline_keyboard=lang_scope_keyboard(lang))
+
+    await update.callback_query.edit_message_text(message, reply_markup=markup)
+
+    return SELECT_LANG_SCOPE
+
+
 async def change_interface_lang(update: Update, context: ContextTypes.DEFAULT_TYPE):
     lang = context.user_data['lang']
     _ = select_gettext(lang)
 
     query = update.callback_query
+    await query.answer()
 
     match query.data:
         case 'back':
-            state = SELECT_LANG_SCOPE
-            message = _('Change the language of the interface or voice messages?')
-            markup = InlineKeyboardMarkup(inline_keyboard=lang_scope_keyboard(lang))
+            return await back(update, context)
         case 'cancel':
-            state = ConversationHandler.END
             message = _('Cancelled')
-            markup = None
         case _:
             new_lang = query.data
             _ = select_gettext(new_lang)
-            lang_data = conf.LANGUAGES[new_lang]
+            lang_data = LANGUAGES[new_lang]
 
             context.user_data['lang'] = new_lang
-            state = ConversationHandler.END
 
             message = _('Interface language changed to {lang} {emoji}').format(
                 lang=_(lang_data['full']),
                 emoji=lang_data['emoji']
             )
 
-            markup = None
+    await query.edit_message_text(message, reply_markup=None)
 
-    await query.edit_message_text(message, reply_markup=markup)
-
-    return state
+    return ConversationHandler.END
 
 
 async def change_voice_lang(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -90,19 +106,18 @@ async def change_voice_lang(update: Update, context: ContextTypes.DEFAULT_TYPE):
     _ = select_gettext(lang)
 
     query = update.callback_query
+    await query.answer()
 
     match query.data:
         case 'back':
-            state = SELECT_LANG_SCOPE
-            message = _('Change the language of the interface or voice messages?')
-            markup = InlineKeyboardMarkup(inline_keyboard=lang_scope_keyboard(lang))
+            return await back(update, context)
         case 'cancel':
             state = ConversationHandler.END
             message = _('Cancelled')
             markup = None
         case _:
             new_lang = query.data
-            lang_data = conf.LANGUAGES[new_lang]
+            lang_data = LANGUAGES[new_lang]
 
             context.user_data['voice_lang'] = new_lang
             state = ConversationHandler.END
@@ -120,12 +135,13 @@ async def change_voice_lang(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.callback_query.answer()
     return ConversationHandler.END
 
 
 # handlers
 
-_langs_regex_str = '|'.join(conf.LANGUAGES)
+_langs_regex_str = '|'.join(LANGUAGES)
 
 lang_handler = ConversationHandler(
     conversation_timeout=60,

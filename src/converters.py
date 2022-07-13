@@ -9,7 +9,6 @@ from src.errors import LanguageNotSupportedError
 
 
 def _transcribe_voice_sync(file_path, lang='en'):
-
     if lang not in conf.LANGUAGES:
         supported_langs = list(conf.MODELS)
         message = f"Language '{lang}' is not supported, supported languages are: {repr(supported_langs).strip('[]')}"
@@ -19,10 +18,9 @@ def _transcribe_voice_sync(file_path, lang='en'):
     model = Model(lang=lang, model_name=conf.MODELS.get(lang))
     rec = KaldiRecognizer(model, sample_rate)
 
-    process = subprocess.Popen(['ffmpeg', '-loglevel', 'quiet', '-i',
-                                file_path,
-                                '-ar', str(sample_rate), '-ac', '1', '-f', 's16le', '-'],
-                               stdout=subprocess.PIPE)
+    command = ['ffmpeg', '-loglevel', 'quiet', '-i', file_path,
+               '-ar', str(sample_rate), '-ac', '1', '-f', 's16le', '-']
+    process = subprocess.Popen(command, stdout=subprocess.PIPE)
 
     while data := process.stdout.read(4000):
         rec.AcceptWaveform(data)

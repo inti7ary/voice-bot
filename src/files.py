@@ -14,6 +14,7 @@ def generate_filename(file: File):
 
 
 async def download(file: File):
+    conf.VOICE_DIR.mkdir(parents=True, exist_ok=True)
     filename = generate_filename(file)
     file_path = conf.VOICE_DIR / filename
 

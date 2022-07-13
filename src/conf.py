@@ -13,6 +13,8 @@ LOCALEDIR = BASE_DIR / 'locales/'
 
 REDIS_URL = os.getenv('REDIS_URL')
 
+SAVE_VOICE_FILES = False
+
 HANDLERS = [
     'start_handler',
     'help_handler',

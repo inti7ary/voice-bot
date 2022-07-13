@@ -1,8 +1,10 @@
 from telegram import Update
 from telegram.ext import ContextTypes, MessageHandler, filters
-from src.i18n.translations import select_gettext
+
+from src import conf
 from src.files import download
 from src.converters import transcribe_voice
+from src.i18n.translations import select_gettext
 from src.i18n.utils import ensure_language
 
 
@@ -14,7 +16,7 @@ async def handle_voice(update: Update, context: ContextTypes.DEFAULT_TYPE):
     _ = select_gettext(lang)
 
     file = await update.message.voice.get_file()
-    file_path = await download(file)
+    file_path = await download(file) if conf.SAVE_VOICE_FILES else file.file_path
 
     text = await transcribe_voice(file_path=file_path, lang=voice_lang) or\
         _("Sorry, I failed to detect any voice here :(")

@@ -1,7 +1,9 @@
+import os
+
 import conf
-from src import handlers
+import handlers
 from telegram.ext import Application
-from src.persistence import RedisPersistence
+from persistence import RedisPersistence
 
 
 def main():

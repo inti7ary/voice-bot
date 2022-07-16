@@ -1,0 +1,21 @@
+#!/bin/bash
+
+pwd
+echo "Collecting translatable strings"
+echo "Generating the POT file"
+
+echo > locales/bot.pot
+
+find src/ -iname *.py | xargs xgettext -L python --from-code UTF-8 -j -d bot -o locales/bot.pot -
+
+echo "Merging POT template with existing .po files"
+
+for file in $(find ./locales -name *.po); 
+    do
+	    echo "Merging ${file}..."
+	    msgmerge -U $file locales/bot.pot
+    done;
+
+echo "Merging completed"
+echo "You can now manually edit merged files to provide translation strings"
+echo "When you've done editing those files, run 'find ./locales/ -name \*.po -execdir msgfmt bot.po -o bot.mo \;' to compile them"

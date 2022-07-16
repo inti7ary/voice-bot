@@ -1,0 +1,14 @@
+#!/usr/bin/env python
+from src import conf
+from vosk import Model
+
+
+def get_model_names():
+    return list(conf.MODELS.values())
+
+
+if __name__ == '__main__':
+    model_names = get_model_names()
+
+    for name in model_names:
+        Model(model_name=name)

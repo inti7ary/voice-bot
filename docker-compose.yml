@@ -1,0 +1,17 @@
+services:
+  bot:
+    build: .
+    volumes:
+      - voice:/app/voice
+    environment:
+      - REDIS_URL=redis://redis
+      - TG_BOT_TOKEN
+    depends_on:
+      - redis
+  redis:
+    image: redis
+    volumes:
+      - redis-data:/data
+volumes:
+  voice:
+  redis-data:

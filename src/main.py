@@ -7,11 +7,14 @@ from persistence import RedisPersistence
 
 
 def main():
-    application = Application.builder() \
+    builder = Application.builder() \
         .token(conf.API_TOKEN) \
-        .persistence(RedisPersistence(redis_url=conf.REDIS_URL)) \
-        .concurrent_updates(True) \
-        .build()
+        .concurrent_updates(True)
+
+    if conf.REDIS_URL:
+        builder.persistence(RedisPersistence(redis_url=conf.REDIS_URL)) \
+
+    application = builder.build()
 
     for handler in conf.HANDLERS:
         application.add_handler(getattr(handlers, handler))

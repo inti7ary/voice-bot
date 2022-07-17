@@ -1,6 +1,5 @@
 #!/bin/bash
 
-pwd
 echo "Collecting translatable strings"
 echo "Generating the POT file"
 

@@ -1,4 +1,5 @@
 from telegram import Update
+from telegram.constants import ChatAction
 from telegram.ext import ContextTypes, MessageHandler, filters
 
 from src import conf
@@ -17,6 +18,8 @@ async def handle_voice(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     file = await update.message.voice.get_file()
     file_path = await download(file) if conf.SAVE_VOICE_FILES else file.file_path
+
+    await update.effective_chat.send_action(ChatAction.TYPING)
 
     text = await transcribe_voice(file_path=file_path, lang=voice_lang) or\
         _("Sorry, I failed to detect any voice here :(")

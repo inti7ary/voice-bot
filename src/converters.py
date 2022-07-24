@@ -1,5 +1,4 @@
 import asyncio
-import concurrent.futures
 import json
 from functools import partial
 from vosk import Model, KaldiRecognizer
@@ -31,13 +30,12 @@ def _transcribe_voice_sync(file_path, lang='en'):
     return text
 
 
-async def transcribe_voice(file_path, lang='en'):
+async def transcribe_voice(file_path, lang='en', pool=None):
     """Convert audio file at file_path to text."""
 
     func = partial(_transcribe_voice_sync, file_path=file_path, lang=lang)
     loop = asyncio.get_running_loop()
 
-    with concurrent.futures.ProcessPoolExecutor() as pool:
-        result = await loop.run_in_executor(pool, func)
+    result = await loop.run_in_executor(pool, func)
 
     return result
